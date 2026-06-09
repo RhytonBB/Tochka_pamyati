@@ -1,0 +1,60 @@
+# Корневые служебные каталоги
+.agents/
+.codex-spreadsheet-work/
+.gocache/
+.pdf_preview/
+.ppt_media_preview/
+.trae/
+outputs/
+rendered_wkr/
+
+# Загружаемые изображения и локальные файлы проекта
+uploads/
+project2/back/uploads/
+project2/back/originals/
+project2/back/previews/
+project2/back/thumbnails/
+project2/back/signal_originals/
+project2/back/signal_previews/
+project2/back/signal_thumbnails/
+project2/back/AL2-AL8/Russia_AL2-AL8.shp
+# Локальные настройки и секреты
+project2/back/.env
+.env
+.env.*
+!.env.example
+
+# Сборка и зависимости фронтенда
+project2/front/node_modules/
+project2/front/dist/
+project2/front/.vite/
+project2/front/.vscode/
+
+# Сборка и временные файлы бэкенда
+project2/back/*.exe
+project2/back/*.out
+project2/back/*.test
+project2/back/.gocache/
+
+# Временные и тестовые файлы в back
+project2/back/scratch*.go
+project2/back/test_*.go
+
+# Виртуальные окружения и кэши сервисов проверки
+image-filter/venv/
+image-filter/__pycache__/
+text-filter/venv/
+text-filter/__pycache__/
+
+# Общие кэши Python
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+
+# Временные офисные и системные файлы
+~$*
+*.tmp
+*.log
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,257 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@theme {
+  /* Новая цветовая палитра согласно правилам дизайна - Темная тема по умолчанию */
+  --color-primary: #3b82f6; /* Акцентный синий, не более 10% интерфейса */
+  --color-secondary: #8b5cf6;
+  --color-accent: #10b981;
+  --color-neutral: #1f2937;
+  
+  --color-base-100: #121212; /* Тёмно-серый фон, как в правилах */
+  --color-base-200: #1e1e1e; /* Чуть светлее для карточек */
+  --color-base-300: #2d2d2d; /* Для границ и выделений */
+  --color-base-content: #e0e0e0; /* Светло-серый текст */
+  
+  --color-info: #0ea5e9;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  
+  /* Типографика */
+  --font-sans: "Manrope", "system-ui", "sans-serif";
+  --font-display: "Syne", "sans-serif";
+  --font-mono: "JetBrains Mono", "monospace";
+  
+  /* Отступы и размеры */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-2xl: 4rem;
+}
+
+:root {
+  --map-height: calc(100vh - 64px);
+  --max-line-length: 65ch;
+  --border-radius-sm: 0.5rem;
+  --border-radius-md: 1rem;
+  --border-radius-lg: 1.5rem;
+  --border-radius-xl: 2rem;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+body {
+  @apply bg-base-100 text-base-content antialiased;
+  overflow-x: hidden;
+  line-height: 1.5;
+  font-family: var(--font-sans);
+}
+
+.map-container {
+  height: var(--map-height);
+  width: 100%;
+}
+
+/* Типографика согласно правилам */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.text-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Улучшенная типографика для заголовков */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+h1 {
+  @apply text-4xl md:text-6xl font-extrabold tracking-tighter text-balance;
+  line-height: 1.1;
+  margin-bottom: 0.5em;
+}
+
+h2 {
+  @apply text-3xl md:text-4xl font-bold tracking-tight text-balance;
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+}
+
+h3 {
+  @apply text-2xl md:text-3xl font-bold tracking-tight;
+  line-height: 1.3;
+  margin-bottom: 0.5em;
+}
+
+h4 {
+  @apply text-xl md:text-2xl font-bold;
+  line-height: 1.4;
+  margin-bottom: 0.5em;
+}
+
+p {
+  @apply leading-relaxed;
+  max-width: var(--max-line-length);
+  margin-bottom: 1em;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-base-200 rounded-full;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-base-300 rounded-full;
+  @apply hover:bg-base-300 transition-colors;
+}
+
+/* Анимации согласно правилам производительности */
+.animate-in {
+  animation: animate-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes animate-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-out {
+  animation: animate-out 0.2s ease-out;
+}
+
+@keyframes animate-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Плавные переходы между страницами */
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Скелетон-загрузка */
+.skeleton {
+  @apply bg-base-200 rounded-lg;
+  background: linear-gradient(90deg, var(--fallback-b2,oklch(var(--b2)/1)) 25%, var(--fallback-b3,oklch(var(--b3)/1)) 50%, var(--fallback-b2,oklch(var(--b2)/1)) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Состояния фокуса и наведения */
+.hover-lift {
+  @apply transition-transform duration-200 hover:-translate-y-1;
+}
+
+.hover-glow {
+  @apply transition-all duration-300 hover:shadow-lg hover:shadow-primary/20;
+}
+
+/* Утилиты для доступности */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Скрытые элементы */
+[v-cloak] {
+  display: none !important;
+}
+
+/* Правильные outline от DaisyUI и кастомные элементы */
+*:focus-visible {
+  outline: 2px solid var(--color-primary) !important;
+  outline-offset: 2px !important;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 22%, transparent) !important;
+}
+
+.input:focus-visible,
+.textarea:focus-visible,
+.select:focus-visible,
+.file-input:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+
+/* Улучшенные табы */
+.tabs-custom {
+  @apply flex gap-2 p-2 bg-base-200 rounded-2xl;
+}
+
+.tab-custom {
+  @apply px-4 py-2 rounded-xl font-medium transition-all;
+  @apply hover:bg-base-300;
+}
+
+.tab-custom-active {
+  @apply bg-primary text-primary-content shadow-lg shadow-primary/20;
+}
